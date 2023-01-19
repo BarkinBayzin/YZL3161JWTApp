@@ -1,0 +1,193 @@
+﻿Onion Architecture, aynı zamanda Clean Architecture olarak da bilinir, bir yazılım tasarım deseni olarak kodları katmanlara göre organize eder. Bu katmanların merkezinde kurumsal mantık vardır ve dış katmanlar sunum ve altyapı gibi şeyleri ele almak için kullanılır. Fikir, iç katmanların dış katmanlara bağımlı olmaması gerektiğidir ve çekirdek herhangi bir özel teknoloji veya çerçeveye bağımsız olmalıdır. 
+
+Onion Architecture'da katmanlar genellikle şöyle organize edilir: 
+
+En iç katman, Domain katmanıdır, bu katman çekirdek kurumsal mantık ve varlıkları içerir. Bu katman herhangi bir özel teknoloji veya çerçeveye bağımsız olmalıdır. 
+
+Sonraki katman, Uygulama katmanıdır, bu katman uygulamanın kullanım durumlarını ve arayüzlerini içerir. Bu katman Domain katmanı ile iletişim kurar ve dış katmanların faaliyetlerini koordine eder. 
+
+Sonraki katman, Altyapı katmanıdır, bu katman dış sistemlerle etkileşim kodlarını içerir, örneğin veritabanları ve API'ler. Bu katman Uygulama katmanı ile iletişim kurar ve Domain katmanından bağımsız olmalıdır. 
+
+En dış katman, Sunum katmanıdır, bu katman kullanıcıya bilgi gösterme ve kullanıcı girdisini işleme kodlarını içerir. Bu katman Uygulama katmanı ile iletişim kurar ve Domain ve Altyapı katmanlarından bağımsız olmalıdır. 
+
+Onion Architecture'da bağımlılıklar tersine çevrilir, yani dış katmanlar iç katmanlara bağımlıdır, diğer yöne değil. Bu kodu daha esnek ve daha kolay test edilir hale getirir, çünkü çekirdek kurumsal mantık bağımsız olarak test edilebilir. 
+
+Ayrıca, Onion Architecture sorumların ayrılmasını teşvik eder, kod bazının farklı sorumlarını farklı katmanlara ayırarak. Bu modüler ve kolay bakım yapılabilen bir kod bazına ve daha anlaşılır ve düşünülebilir olmasına olanak tanır. 
+
+Genel olarak, Onion Architecture'un amacı, kod bazının farklı sorumlarını farklı katmanlara ayırarak ve iç katmanların dış katmanlardan bağımsız olduğundan emin olmak suretiyle, kodun daha kolay bakım yapılabilir, test edilebilir ve esnek hale getirmektir. 
+ 
+
+______________________________ MEDIATOR PATTERN _____________________________ 
+ 
+
+Mediator deseni, nesnelerin birbirleriyle nasıl iletişim kurduklarının detaylarını bilmeden birbirleriyle iletişim kurmasına olanak tanıyan bir davranışsal tasarım desenidir.  
+
+Nesnelerin doğrudan birbirleriyle iletişim kurması yerine, onlar bir aracı nesne aracılığıyla iletişim kurarlar, bu aracı nesne tüm nesneler arasındaki iletişimin merkezidir. 
+
+Mediator deseni, nesnelerin birbirleriyle karmaşık ve dinamik bir şekilde etkileşim kurması gerektiği ama nesneler arasındaki tüm etkileşimleri önceden tahmin etmek zor olduğu durumlarda yararlıdır.  
+
+Mediator deseni, nesnelerin birbirlerinden ayrışmasını sağlar, bu sayede nesneleri sistemin geri kalanını etkilemeden eklemek, çıkarmak veya değiştirmek daha kolay hale gelir. 
+
+Mediator deseni genellikle aşağıdaki bileşenleri içerir: 
+
+Mediator: Colleague nesneleriyle iletişim kurmak için bir arayüz tanımlar.  
+
+ConcreteMediator: Mediator arayüzünü gerçekleştirir ve Colleague nesneleri arasındaki iletişimi koordine eder.  
+
+Colleague: Mediator ile iletişim kurmak için bir arayüz tanımlar. 
+
+ConcreteColleague: Colleague arayüzünü gerçekleştirir ve Mediator ile iletişim kurar.  
+
+Mediator deseninin bir sohbet uygulamasında kullandığımızı düşünelim: 
+
+Mediator, sohbet sunucusudur ve farklı sohbet istemcileri arasındaki mesajları iletir.  
+
+Colleagues, sohbet uygulamasının tek tek kullanıcılarıdır. Sohbet sunucusu, bağlı olan istemcilerin listesini sürdürür ve aralarındaki mesajları iletir. Bir istemci bir mesaj gönderdiğinde, o mesaj sohbet sunucusuna gönderilir ve daha sonra mesaj diğer tüm bağlı istemcilere iletilir. 
+
+Mediator deseni kullanarak, Sohbet istemcileri birbirlerinden ayrıştırılmıştır ve diğer istemcilerin nasıl gerçekleştirildiği hakkında bilgiye ihtiyaç duymazlar. Bu, sistemin geri kalanını etkilemeden istemcileri eklemek, çıkarmak veya değiştirmek için daha kolay hale gelir. 
+
+_______________________________    CQRS (Command Query Responsibility Segregation ____________________________ 
+ 
+
+CQRS, Command Query Responsibility Segregation (Komut Sorgulama Sorumluluk Ayrımı) olarak adlandırılan bir mimari desenidir.  
+
+Bu desen, veri okuma ve güncelleme sorumluluklarını ayrı ayrı yerleştirir.  
+
+Geleneksel bir sistemde, aynı nesneler ve metodlar hem veri okuma hem de veri güncelleme işlemlerini yürütür, bu da karmaşık ve kolay bakılmayan kodlar oluşmasına neden olur.  
+
+CQRS, bu sorumlulukları iki ayrı nesne olarak ayırır: Komut(Command) modeli ve Sorgu(Query) modeli. 
+
+Komut modeli, veri güncelleme işlemleri için (örneğin, kayıt oluşturma, güncelleme veya silme) talepleri işler. Sorgu modeli ise veri okuma işlemleri için (örneğin, kayıtları alma veya toplam hesaplama) talepleri işler. 
+
+Bu sorumlulukları ayırarak, CQRS daha modüler ve kolay bakılır bir kod tabanı, daha iyi ölçeklendirme ve performans sağlar. Ayrıca, sistem için gereken özelliklere bağlı olarak, Komut ve Sorgu modelleri için farklı teknolojiler ve veri depolama çözümleri kullanmanıza izin verir. 
+
+CQRS, Event Sourcing deseniyle birlikte sıklıkla kullanılır.  
+
+Bu desen sistemin durumunu bir dizi olay olarak depolar, geleneksel bir ilişkisel veritabanı yerine.  
+
+Bu, daha esnek ve denetlenebilir bir sistem sağlar, çünkü sistemin durumuna yapılan tüm değişiklikler izlenir ve herhangi bir zamandaki sistemin durumunu yeniden oluşturmak için oynatılabilir. 
+
+Özet olarak, CQRS, veri okuma ve güncelleme sorumluluklarını ayrı ayrı nesneler veya modeller olarak ayıran bir mimari desenidir. Mediator deseniyle direk ilgisi yoksa da ikisi de sorumlulukları ayırmak ve nesneleri ayrıştırmak için sistemi daha esnek ve kolay bakılır hale getirmek için çalışır.
+ 
+
+Mediator ve CQRS'in avantajları nelerdir? 
+ 
+
+Mediator ve CQRS, her ikisi de sistemi daha esnek, maintainable (kolay bakılabilir) ve performanslı hale getirmek için kullanılan mimari desenlerdir. 
+
+Mediator deseninin avantajları arasında: 
+
+Nesneler arasındaki iletişimi daha iyi yapılandırır ve nesnelerin birbirlerinden ayrışmasını sağlar. Bu, sistemi daha esnek ve kolay bakılır hale getirir. 
+
+Nesneler arasındaki iletişimin detaylarını gizler, bu da sistemi daha modüler hale getirir. 
+
+Nesneler arasındaki iletişimi daha dinamik hale getirir, çünkü nesneler arasındaki tüm etkileşimleri önceden tahmin etmek zor olabilir. 
+
+CQRS deseninin avantajları arasında: 
+
+Veri okuma ve güncelleme işlemlerinin sorumluluklarını ayrı ayrı yerleştirir, bu da sistemi daha modüler ve kolay bakılır hale getirir. 
+
+Veri okuma ve güncelleme işlemlerinin farklı teknolojiler ve veri depolama çözümleri kullanmasına izin verir. 
+
+Veri okuma ve güncelleme işlemleri arasındaki iletişimi daha iyi yapılandırır ve sistemin performansını arttırır. 
+
+Event Sourcing ile birlikte kullanıldığında sistem durumunun daha esnek ve denetlenebilir bir şekilde saklanmasını sağlar. 
+
+ 
+
+ 
+
+Pekii, Onion Mimari ile birlikte bu patternleri kullanmanın avantajları nelerdir? 
+
+ 
+
+Onion Architecture (Soğan Mimarisi), Hexagonal Architecture (Altıgen Mimarisi) desenine benzer bir mimari desenidir. Bu desen, domain logic'i (uygulamanın iş katmanı) infrastructure (alt yapı) ve presentation layer (sunum katmanı) 'den ayrıştırmak üzerine odaklanır. Onion Architecture, domain logic'i merkezine alan katmanlara ayrılmış bir uygulama olarak tasarlar ve her katman sadece altındaki katmana bağımlıdır. 
+
+CQRS ve Mediator desenlerini Onion Architecture ile birlikte kullanmak bazı avantajlar sağlar: 
+
+Domain logic, infrastructure ve presentation katmanlarından ayrıştırılır ve bu da test etme ve bakımı kolaylaştırır. 
+
+CQRS deseni, domain logic içinde okuma ve yazma işlemlerini ayrıştırmak için kullanılabilir ve bu uygulamanın ölçeklenebilirliğini ve performansını arttırabilir. 
+
+Mediator deseni, farklı katmanlar ve nesneler arasındaki iletişimi ayrıştırmak için kullanılabilir ve bu sistemin geri kalanını etkilemeden işlevselliği değiştirmek veya eklemek için kolay hale gelir. 
+
+Domain logic, uygulamanın merkezindedir ve farklı uygulamalar ve hizmetler arasında kolayca paylaşılabilir, bu da kullanılabilirliği ve esnekliği arttırır. 
+
+Onion Architecture ve CQRS deseni birlikte kullanıldığında, karmaşık ve evrimleşen domain logic'e sahip uygulamalar için iyi bir seçenek olabilir.  
+
+ 
+
+Performans ve ölçeklenebilirlik ihtiyacı olan uygulamalar için uygun olabilir.  
+
+Mediator deseni de farklı katmanlar ve nesneler arasındaki iletişimi yönetmek için kullanılabilir, bu sayede sistemin geri kalanını etkilemeden işlevselliği değiştirmek veya eklemek kolay hale gelir. Onion Architecture ile birlikte kullanıldığında, CQRS ve Mediator desenleri, kodun yapısını anlamak ve bakımını kolaylaştırmak için net ve esnek bir yol sunar. 
+
+ 
+
+Şimdi bu desenleri birlikte kullanmayı tasvir edelim; 
+
+ 
+
+Bir sosyal medya uygulaması oluşturduğumuzu varsayalım.  
+
+Kullanıcılar burada paylaşımlar yapabilir ve birbirleriyle etkileşimde bulunabilirler. 
+
+Uygulamanın merkezinde yer alan domain logic, uygulama ile ilgili iş kurallarını ve varlıkları içerir.  
+
+Bu, Post, User, Comment ve Like gibi sınıfları içerebilir. Bu sınıflar, domain ile ilgili özellikleri ve davranışları yöneten iş kuralları ile ilgili metodları içerir. 
+
+Domain logic'in üstünde yer alan uygulama katmanı, uygulamanın kullanıcı durumlarını içerir. Bu durumda, CreatePostUseCase, DeletePostUseCase, LikePostUseCase ve CommentPostUseCase gibi sınıflar içerebilir. Bu sınıflar, domain logic ile etkileşimde bulunur ve uygulamanın kullanıcı durumlarını gerçekleştirir, örneğin bir paylaşım oluşturmak, bir paylaşımı silmek, bir paylaşımı beğenmek ve bir paylaşıma yorum yapmak. 
+
+Uygulama katmanının üstünde yer alan infrastructure katmanı, veritabanları, API'ler ve iletişim sistemleri gibi dış sistemlerle iletişimi yürüten kodları içerir. Bu durumda, PostRepository, UserRepository, CommentRepository ve LikeRepository gibi sınıflar, her bir varlık için CRUD işlemlerini gerçekleştirir. 
+Infrastructur katmanının üstünde yer alan sunum katmanı, kullanıcı arayüzü ile iletişimi yürüten kodları içerir. Bu durumda, PostController, UserController, CommentController ve LikeController gibi sınıflar, HTTP isteklerini yönetir ve müşteriye uygun yanıtı geri döndürür. 
+
+Şimdi, mimari içinde CQRS ve Mediator desenlerinin nasıl kullanılabileceğine bakalım: 
+
+CQRS deseni, domain varlıkları için okuma ve yazma işlemlerini ayrıştırmak için kullanılabilir.  
+
+Örneğin, PostRepository, oluşturma, güncelleme ve silme işlemleri gibi yazma işlemlerini yönetebilirken, PostQuery, paylaşımları alma ve toplam hesaplama gibi okuma işlemlerini yönetebilir. Bu sorumlulukların ayrılması, daha iyi ölçeklenebilirlik ve performans, ayrıca okuma ve yazma işlemleri için farklı teknolojileri kullanma olanağı sağlar. 
+
+ 
+
+Mediator deseni, farklı katmanlar ve nesneler arasındaki iletişimi yönetmek için kullanılabilir.  
+
+Örneğin, tüm iletişimin merkezi olarak işlev gören bir Mediator sınıfı oluşturulabilir.  
+
+Bu Mediator sınıfı, CreatePostUseCase ve PostRepository arasındaki iletişimi, PostController ve PostQuery arasındaki iletişimi yönetebilir. Bu sayede, farklı katmanlar ve nesneler birbirlerinden ayrıştırılır ve sistemin geri kalanını etkilemeden işlevsellik eklemek veya değiştirmek daha kolay hale gelir. 
+
+Bu şekilde, Onion Architecture ile birlikte CQRS ve Mediator desenlerinin kullanımı, çözümün daha esnek, bakımı kolay ve performanslı olmasını sağlar. Domain logic, infrastructure ve sunum katmanlarından ayrıştırılır ve farklı katmanlar ve nesneler arasındaki iletişim açık ve esnek bir şekilde yönetilir. Bu sayede, kod yapısını anlamak ve bakımını kolaylaştırmak daha kolay hale gelir. 
+
+ 
+
+Onion Architecture, Mediator ve CQRS desenlerini .NET Core ile kullanmak için birkaç farklı yol var. 
+
+1- Onion Architecture içinde, projenizi domain, application, infrastructure ve presentation katmanlarına ayırabilirsiniz. 
+
+ 
+
+2- Mediator desenini kullanmak için, MediatR kütüphanesini kullanabilirsiniz. Bu kütüphane, Mediator arayüzünü ve Mediator sınıflarını içerir. Mediator sınıfı, farklı katmanlar arasındaki iletişimi yönetir. Örneğin, bir CreatePostCommand sınıfı oluşturabilirsiniz ve bu sınıfı Mediator aracılığıyla PostRepository'ye gönderebilirsiniz. 
+
+ 
+
+3- CQRS desenini kullanmak için, okuma işlemleri için bir Query sınıfı ve yazma işlemleri için bir Command sınıfı oluşturabilirsiniz. Örneğin, bir GetPostQuery sınıfı ve bir CreatePostCommand sınıfı oluşturabilirsiniz. Bu sınıflar, PostRepository veya başka bir veritabanı arayüzüne gönder 
+
+ 
+
+ 
+
+Pekii desenleri hangi katmanlara yerleştirmeliyim? 
+
+ 
+
+Onion Architecture içinde, domain katmanı en dahili katmandır ve iş regülasyonlarını ve varlıkları içerir.  
+
+Application katmanı, domain katmanı üzerinde yer alır ve uygulamanın kullanıcı durumlarını içerir.  
+
+Infrastructure katmanı, application katmanı üzerinde yer alır ve veri erişim katmanını, veritabanı erişimini, API erişimini ve benzeri işlemleri içerir.  
+
+Presentation katmanı, infrastructure katmanı üzerinde yer alır ve kullanıcı arayüzü ile iletişimi yürüten kodları içerir. 
+
+Mediator deseni, genellikle application katmanında yer alır ve farklı katmanlar arasındaki iletişimi yönetir.  
+
+Mediator sınıfı, domain, application, infrastructure ve presentation katmanları arasındaki iletişimi yönetir. 
+
+CQRS deseni, genellikle infrastructure katmanında yer alır. okuma işlemleri için bir Query sınıfı ve yazma işlemleri için bir Command sınıfı oluşturabilirsiniz. Bu sınıflar, domain, application katmanlarından gelen istekleri handle eder ve infrastructure katmanındaki veritabanı arayüzleri ile iletişim kurar. 
