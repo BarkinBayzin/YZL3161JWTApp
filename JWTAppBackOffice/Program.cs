@@ -30,7 +30,16 @@ builder.Services.AddAutoMapper(opt =>
 {
     opt.AddProfiles(new List<Profile>()
     {
-        new ProductProfile() //buraya eklenerek kayıt edilecek
+        new ProductProfile(), //buraya eklenerek kayıt edilecek
+        new CategoryProfile(),
+    });
+});
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("GlobalCors", config =>
+    {
+        config.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 });
 
@@ -45,6 +54,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("GlobalCors"); //Birden fazla cors policy eklenebilir.
 
 app.UseAuthorization();
 
