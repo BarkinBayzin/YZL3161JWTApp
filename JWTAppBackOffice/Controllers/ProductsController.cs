@@ -1,6 +1,7 @@
 ﻿using JWTAppBackOffice.Core.Features.CQRS.Commands;
 using JWTAppBackOffice.Core.Features.CQRS.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace JWTAppBackOffice.Controllers
     [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Member")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;

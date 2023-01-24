@@ -1,0 +1,15 @@
+﻿@model CategoryCreateRequestModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create" asp-controller="Category" method="post">
+    <div class="mb-3">
+        <label asp-for="Definition">Kategori Adı: </label>
+        <input type="text" asp-for="Definition" class="form-control" />
+        <span class="text-danger" asp-validation-for="Definition"></span>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-outline-info">Kaydet</button>
+    </div>
+</form>

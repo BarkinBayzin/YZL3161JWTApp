@@ -1,0 +1,16 @@
+﻿@model CategoryUpdateRequestModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<form asp-action="Update" asp-controller="Category" method="post">
+    <input type="hidden" asp-for="Id"/>
+    <div class="mb-3">
+        <label asp-for="Definition">Kategori Adı: </label>
+        <input type="text" asp-for="Definition" class="form-control"/>
+        <span class="text-danger" asp-validation-for="Definition"></span>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-outline-info">Güncelle</button>
+    </div>
+</form>

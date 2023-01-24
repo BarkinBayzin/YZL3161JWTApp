@@ -1,0 +1,40 @@
+﻿@model List<CategoryListResponseModel>
+@{
+    ViewData["Title"] = "List";
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <a asp-action="Create" asp-controller="Category" class="btn btn-outline-success btn-sm">Kategori Ekle</a>
+        <table class="table table-stripped table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Definition</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model.Count > 0)
+                {
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <th>@item.Id</th>
+                            <th>@item.Definition</th>
+                            <th colspan="2">
+                                <a class="btn btn-outline-warning btn-sm" asp-route-id="@item.Id" asp-action="Update" asp-controller="Category">Güncelle</a>
+                           &nbsp;&nbsp;
+                                <a class="btn btn-outline-danger btn-sm" asp-route-id="@item.Id" asp-action="Remove" asp-controller="Category">Sil</a>
+                            </th>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-danger">Herhangi bir data bulunamadı</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
