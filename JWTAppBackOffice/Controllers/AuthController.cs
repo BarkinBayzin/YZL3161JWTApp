@@ -42,7 +42,7 @@ namespace JWTAppBackOffice.Controllers
 
                 var token = JwtGenerator.GenerateToken(userDto);
 
-                return Ok(userDto);
+                return Created("",token);
             }
 
             return BadRequest("Username or password is invalid..!");
