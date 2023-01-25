@@ -3,6 +3,7 @@ using JWTAppBackOffice.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWTAppBackOffice.Persistance.Migrations
 {
     [DbContext(typeof(JWTContext))]
-    partial class JWTContextModelSnapshot : ModelSnapshot
+    [Migration("20230125071155_ConStrUpdated")]
+    partial class ConStrUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,7 +90,7 @@ namespace JWTAppBackOffice.Persistance.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Definition")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")

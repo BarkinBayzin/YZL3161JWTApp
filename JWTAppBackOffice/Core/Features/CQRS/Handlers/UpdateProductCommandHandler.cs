@@ -18,7 +18,7 @@ namespace JWTAppBackOffice.Core.Features.CQRS.Handlers
             Product updatedProduct = await _repository.GetByIdAsync(request.Id);
             if (updatedProduct != null)
             {
-                updatedProduct.Definition = request.Name;
+                updatedProduct.Name = request.Name;
                 updatedProduct.Stock = request.Stock;
                 updatedProduct.Price = request.Price;
                 updatedProduct.CategoryId = request.CategoryId;

@@ -19,7 +19,7 @@ namespace JWTAppBackOffice.Core.Features.CQRS.Handlers
             await _repository.CreateAsync(new Product
             {
                 CategoryId = request.CategoryId,
-                Definition = request.Name,
+                Name = request.Name,
                 Price = request.Price,
                 Stock = request.Stock
             });
