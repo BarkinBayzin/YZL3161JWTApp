@@ -35,7 +35,7 @@ namespace JWTAppBackOffice.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id < 0) return NotFound();
