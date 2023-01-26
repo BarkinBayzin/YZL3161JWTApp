@@ -1,0 +1,20 @@
+﻿@model SupplierCreateRequestModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create" asp-controller="Supplier" method="post">
+    <div class="mb-3">
+        <label asp-for="CompanyName">Şirket Adı: </label>
+        <input type="text" asp-for="CompanyName" class="form-control" />
+        <span class="text-danger" asp-validation-for="CompanyName"></span>
+    </div>
+     <div class="mb-3">
+        <label asp-for="Freight">Kargo Ücreti: </label>
+        <input type="text" asp-for="Freight" class="form-control" />
+        <span class="text-danger" asp-validation-for="Freight"></span>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-outline-info">Kaydet</button>
+    </div>
+</form>

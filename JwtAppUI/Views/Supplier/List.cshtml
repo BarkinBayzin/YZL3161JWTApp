@@ -1,0 +1,42 @@
+﻿@model List<SupplierListResponseModel>
+@{
+    ViewData["Title"] = "List";
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <a asp-action="Create" asp-controller="Supplier" class="btn btn-outline-success btn-sm">Tedarikçi Ekle</a>
+        <table class="table table-stripped table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Şirket Adı</th>
+                    <th scope="col">Kargo Ücreti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model.Count > 0)
+                {
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <th>@item.Id</th>
+                            <th>@item.CompanyName</th>
+                            <th>@item.Freight.ToString("C2")</th>
+                            <th colspan="2">
+                                <a class="btn btn-outline-warning btn-sm" asp-route-id="@item.Id" asp-action="Update" asp-controller="Supplier">Güncelle</a>
+                           &nbsp;&nbsp;
+                                <a class="btn btn-outline-danger btn-sm" asp-route-id="@item.Id" asp-action="Remove" asp-controller="Supplier">Sil</a>
+                            </th>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2" class="text-danger">Herhangi bir data bulunamadı</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
