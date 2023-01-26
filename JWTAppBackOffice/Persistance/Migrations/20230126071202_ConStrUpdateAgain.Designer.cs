@@ -3,6 +3,7 @@ using JWTAppBackOffice.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JWTAppBackOffice.Persistance.Migrations
 {
     [DbContext(typeof(JWTContext))]
-    partial class JWTContextModelSnapshot : ModelSnapshot
+    [Migration("20230126071202_ConStrUpdateAgain")]
+    partial class ConStrUpdateAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,9 +96,6 @@ namespace JWTAppBackOffice.Persistance.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ShipperId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
@@ -104,28 +103,7 @@ namespace JWTAppBackOffice.Persistance.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ShipperId");
-
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Shipper", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Freight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Shippers");
                 });
 
             modelBuilder.Entity("JWTAppBackOffice.Core.Domain.AppUser", b =>
@@ -147,15 +125,7 @@ namespace JWTAppBackOffice.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JWTAppBackOffice.Core.Domain.Shipper", "Shipper")
-                        .WithMany("Products")
-                        .HasForeignKey("ShipperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Shipper");
                 });
 
             modelBuilder.Entity("JWTAppBackOffice.Core.Domain.AppRole", b =>
@@ -164,11 +134,6 @@ namespace JWTAppBackOffice.Persistance.Migrations
                 });
 
             modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Shipper", b =>
                 {
                     b.Navigation("Products");
                 });

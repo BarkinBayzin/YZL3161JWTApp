@@ -15,6 +15,7 @@ namespace JWTAppBackOffice.Persistance.Context
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<AppUser> AppUsers => Set<AppUser>();
         public DbSet<AppRole> AppRoles => Set<AppRole>();
+        public DbSet<Shipper> Shippers => Set<Shipper>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

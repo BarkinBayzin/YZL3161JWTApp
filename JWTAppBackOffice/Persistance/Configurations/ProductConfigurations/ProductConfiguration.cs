@@ -9,6 +9,9 @@ namespace JWTAppBackOffice.Persistance.Configurations.ProductConfigurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasOne(x => x.Category).WithMany(x => x.Products).HasForeignKey(x => x.CategoryId);
+
+            builder.HasOne(x => x.Shipper).WithMany(x => x.Products).HasForeignKey(x => x.ShipperId);
+
         }
     }
 }
