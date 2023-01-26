@@ -36,6 +36,7 @@ builder.Services.AddAutoMapper(opt =>
     {
         new ProductProfile(), //buraya eklenerek kayıt edilecek
         new CategoryProfile(),
+        new SupplierProfile(),
     });
 });
 
