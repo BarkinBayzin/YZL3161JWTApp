@@ -12,5 +12,8 @@ namespace JwtAppUI.Models
         public decimal Price { get; set; }
         [Required(ErrorMessage = "Ürün Kategorisi Boş Olamaz")]
         public int CategoryId { get; set; }
+
+        [Required(ErrorMessage = "Ürün Tedarikçisi Boş Olamaz")]
+        public int SupplierId { get; set; }
     }
 }

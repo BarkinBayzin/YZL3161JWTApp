@@ -22,6 +22,7 @@ namespace JWTAppBackOffice.Core.Features.CQRS.Handlers
                 updatedProduct.Stock = request.Stock;
                 updatedProduct.Price = request.Price;
                 updatedProduct.CategoryId = request.CategoryId;
+                updatedProduct.SupplierId = request.SupplierId;
                 await _repository.UpdateAsync(updatedProduct);
             }
 

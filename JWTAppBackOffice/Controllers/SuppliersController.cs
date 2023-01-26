@@ -9,12 +9,12 @@ namespace JWTAppBackOffice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize("Admin")]
-    public class SupplierController : ControllerBase
+    [Authorize(Roles = "Admin")]
+    public class SuppliersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public SupplierController(IMediator mediator)
+        public SuppliersController(IMediator mediator)
         {
             _mediator = mediator;
         }

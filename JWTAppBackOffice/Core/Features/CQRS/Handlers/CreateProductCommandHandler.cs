@@ -21,7 +21,8 @@ namespace JWTAppBackOffice.Core.Features.CQRS.Handlers
                 CategoryId = request.CategoryId,
                 Name = request.Name,
                 Price = request.Price,
-                Stock = request.Stock
+                Stock = request.Stock,
+                SupplierId = request.SupplierId
             });
 
             return Unit.Value;

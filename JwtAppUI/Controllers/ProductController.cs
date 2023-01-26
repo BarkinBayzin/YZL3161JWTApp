@@ -44,11 +44,20 @@ namespace JwtAppUI.Controllers
 
                 foreach (var item in list)
                 {
+                    //Category eşleme alanı
                     var responseCategory = await client.GetAsync($"http://localhost:5099/api/Categories/{item.CategoryId}");
                     var categoryJsonString = await responseCategory.Content.ReadAsStringAsync();
                     var category = JsonSerializer.Deserialize<CategoryListResponseModel>(categoryJsonString, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
                     item.Category = category;
+
+
+                    //Supplier eşleme alanı
+                    var responseSupplier = await client.GetAsync($"http://localhost:5099/api/Suppliers/{item.SupplierId}");
+                    var supplierJsonString = await responseSupplier.Content.ReadAsStringAsync();
+                    var supplier = JsonSerializer.Deserialize<SupplierListResponseModel>(supplierJsonString, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+
+                    item.Supplier = supplier;
                 }
                 return View(list);
             }
@@ -62,13 +71,27 @@ namespace JwtAppUI.Controllers
             HttpResponseMessage response = await client.GetAsync("http://localhost:5099/api/Categories");
             if (response.IsSuccessStatusCode)
             {
+                //GetCategories
                 string jsonString = await response.Content.ReadAsStringAsync();
                 List<CategoryListResponseModel> catList = JsonSerializer.Deserialize<List<CategoryListResponseModel>>(jsonString, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
                 ViewBag.Categories = new SelectList(catList, "Id", "Definition");
+
+                await GetSuppliers(client);
+
                 return View();
             }
             else return RedirectToAction("Index", "Home");
+        }
+
+        private async Task GetSuppliers(HttpClient client)
+        {
+            //GetSuppliers
+            HttpResponseMessage responseSuppliers = await client.GetAsync("http://localhost:5099/api/Suppliers");
+            string supplierJsonString = await responseSuppliers.Content.ReadAsStringAsync();
+            List<SupplierListResponseModel> supList = JsonSerializer.Deserialize<List<SupplierListResponseModel>>(supplierJsonString, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+
+            ViewBag.Suppliers = new SelectList(supList, "Id", "CompanyName");
         }
 
         [HttpPost]
@@ -104,6 +127,9 @@ namespace JwtAppUI.Controllers
                     var catJsonString = await responseCat.Content.ReadAsStringAsync();
                     var list = JsonSerializer.Deserialize<List<CategoryListResponseModel>>(catJsonString, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
                     ViewBag.Categories = new SelectList(list, "Id", "Definition");
+
+                    await GetSuppliers(client);
+
                     return View(productModel);
                 }
                 else return RedirectToAction("Index", "Home");
