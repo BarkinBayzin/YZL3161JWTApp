@@ -94,22 +94,22 @@ namespace JWTAppBackOffice.Persistance.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ShipperId")
+                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stock")
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ShipperId");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Shipper", b =>
+            modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Supplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +125,7 @@ namespace JWTAppBackOffice.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shippers");
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("JWTAppBackOffice.Core.Domain.AppUser", b =>
@@ -147,15 +147,15 @@ namespace JWTAppBackOffice.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JWTAppBackOffice.Core.Domain.Shipper", "Shipper")
+                    b.HasOne("JWTAppBackOffice.Core.Domain.Supplier", "Supplier")
                         .WithMany("Products")
-                        .HasForeignKey("ShipperId")
+                        .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Shipper");
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("JWTAppBackOffice.Core.Domain.AppRole", b =>
@@ -168,7 +168,7 @@ namespace JWTAppBackOffice.Persistance.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Shipper", b =>
+            modelBuilder.Entity("JWTAppBackOffice.Core.Domain.Supplier", b =>
                 {
                     b.Navigation("Products");
                 });

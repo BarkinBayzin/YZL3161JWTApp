@@ -7,10 +7,10 @@
         public int Stock { get; set; }
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
-        public int ShipperId { get; set; }
+        public int SupplierId { get; set; }
 
         //Nav Props
-        public Shipper Shipper { get; set; }
+        public Supplier Supplier { get; set; }
         public Category Category { get; set; }
     }
 }

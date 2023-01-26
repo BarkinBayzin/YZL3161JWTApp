@@ -1,6 +1,6 @@
 ﻿namespace JWTAppBackOffice.Core.Domain
 {
-    public class Shipper
+    public class Supplier
     {
         public int Id { get; set; }
         public string CompanyName { get; set; }
